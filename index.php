@@ -79,14 +79,33 @@ $token = $_SESSION['token'];
         </div>
         </div>
     </section>
+
     <!-- Js --->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="./assets/js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
+
+
+            var sound = new Howl({
+                src: ['assets/audio/police-siren.wav']
+            });
+
+            var constraints = { audio: true } // add video constraints if required
+
+            navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                var audioContext = new AudioContext();
+                sound.play();
+
+            }).catch((err) => {
+                console.log(err)
+            })
+
+
             $(".poll-form").submit(function(e) {
                 e.preventDefault();
                 var name = $("input[name='name']").val();
